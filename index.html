@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mimoun Chaouchi – Portfolio BTS SIO SLAM</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0d0d16;
+    --bg3: #13131f;
+    --card: #111119;
+    --border: #1a1a2e;
+    --accent: #00e5ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:var(--sans); overflow-x:hidden; }
+
+  body::after {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:9999; opacity:.5;
+  }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    padding:1.1rem 4rem; display:flex; justify-content:space-between; align-items:center;
+    background:rgba(10,10,15,0.92); backdrop-filter:blur(24px);
+    border-bottom:1px solid var(--border); transition:padding .3s;
+  }
+  .nav-logo { font-family:var(--mono); font-size:.82rem; color:var(--accent); letter-spacing:.12em; }
+  .nav-logo span { color:var(--muted); }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { font-family:var(--mono); font-size:.7rem; color:var(--muted); text-decoration:none; letter-spacing:.1em; text-transform:uppercase; transition:color .2s; }
+  .nav-links a:hover { color:var(--accent); }
+
+  /* HERO */
+  #hero { min-height:100vh; display:flex; align-items:center; padding:100px 4rem 4rem; position:relative; overflow:hidden; }
+  .hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,.025) 1px, transparent 1px); background-size:70px 70px; }
+  .hero-glow { position:absolute; width:700px; height:700px; background:radial-gradient(circle, rgba(0,229,255,.07) 0%, transparent 65%); top:-150px; right:-100px; pointer-events:none; }
+  .hero-glow2 { position:absolute; width:500px; height:500px; background:radial-gradient(circle, rgba(124,58,237,.06) 0%, transparent 65%); bottom:0; left:100px; pointer-events:none; }
+  .hero-content { position:relative; z-index:1; max-width:860px; }
+  .hero-tag { font-family:var(--mono); font-size:.72rem; color:var(--accent); letter-spacing:.18em; text-transform:uppercase; margin-bottom:1.8rem; opacity:0; animation:fadeUp .6s ease .2s forwards; }
+  .hero-tag::before { content:'> '; color:var(--muted); }
+  .hero-title { font-size:clamp(3.2rem,7.5vw,6.5rem); font-weight:800; line-height:1; margin-bottom:1.5rem; opacity:0; animation:fadeUp .6s ease .4s forwards; }
+  .hero-title .accent { color:var(--accent); }
+  .hero-title .dim { color:var(--muted); font-weight:300; }
+  .hero-sub { font-family:var(--mono); font-size:.88rem; color:var(--muted); line-height:1.9; max-width:580px; margin-bottom:2.5rem; opacity:0; animation:fadeUp .6s ease .6s forwards; }
+  .hero-sub strong { color:var(--text); }
+  .hero-cta { display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:fadeUp .6s ease .8s forwards; }
+  .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:.68rem; color:var(--muted); letter-spacing:.12em; display:flex; flex-direction:column; align-items:center; gap:.5rem; animation:scrollBounce 2s infinite; }
+  .hero-scroll::after { content:''; width:1px; height:40px; background:linear-gradient(to bottom, var(--muted), transparent); }
+
+  /* PHOTO AVATAR */
+  .hero-avatar { position:absolute; right:4rem; top:50%; transform:translateY(-50%); z-index:1; opacity:0; animation:fadeUp .6s ease 1s forwards; }
+  .hero-avatar img { width:220px; height:220px; border-radius:4px; object-fit:cover; border:2px solid var(--border); filter:grayscale(20%); }
+  .hero-avatar::before { content:''; position:absolute; inset:-6px; border:1px solid var(--accent); border-radius:4px; opacity:.3; }
+
+  /* BTNS */
+  .btn { font-family:var(--mono); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; padding:.85rem 2rem; border-radius:2px; text-decoration:none; transition:all .2s; cursor:pointer; border:none; display:inline-block; }
+  .btn-primary { background:var(--accent); color:var(--bg); font-weight:700; }
+  .btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,229,255,.3); }
+  .btn-outline { background:transparent; color:var(--text); border:1px solid var(--border); }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+  .btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); font-size:.72rem; padding:.6rem 1.2rem; }
+  .btn-ghost:hover { color:var(--accent); border-color:var(--accent); }
+
+  /* SECTIONS */
+  .section-wrap { padding:7rem 4rem; max-width:1280px; margin:0 auto; }
+  .section-alt { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .section-alt .section-wrap { }
+  .section-header { margin-bottom:4rem; }
+  .section-label { font-family:var(--mono); font-size:.68rem; color:var(--accent); letter-spacing:.22em; text-transform:uppercase; margin-bottom:.8rem; }
+  .section-title { font-size:2.5rem; font-weight:800; line-height:1.1; }
+  .section-line { width:50px; height:2px; background:var(--accent); margin-top:1rem; }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:5rem; align-items:start; }
+  .about-text p { font-family:var(--mono); font-size:.83rem; color:var(--muted); line-height:1.95; margin-bottom:1.3rem; }
+  .about-text p strong { color:var(--text); }
+  .formation-box { background:var(--card); border:1px solid var(--border); border-radius:4px; padding:2rem; margin-top:1.5rem; }
+  .formation-box h3 { font-family:var(--mono); font-size:.75rem; color:var(--accent); text-transform:uppercase; letter-spacing:.12em; margin-bottom:1rem; }
+  .formation-list { list-style:none; }
+  .formation-list li { font-family:var(--mono); font-size:.78rem; color:var(--muted); padding:.32rem 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:.8rem; }
+  .formation-list li::before { content:'›'; color:var(--accent); font-size:1.1rem; }
+  .formation-list li:last-child { border-bottom:none; }
+  .timeline { }
+  .tl-item { display:flex; gap:1.5rem; margin-bottom:1.8rem; position:relative; }
+  .tl-item::before { content:''; position:absolute; left:58px; top:26px; bottom:-18px; width:1px; background:var(--border); }
+  .tl-item:last-child::before { display:none; }
+  .tl-year { font-family:var(--mono); font-size:.7rem; color:var(--accent); min-width:58px; padding-top:.15rem; font-weight:600; letter-spacing:.05em; }
+  .tl-title { font-size:.95rem; font-weight:700; margin-bottom:.3rem; }
+  .tl-sub { font-family:var(--mono); font-size:.75rem; color:var(--accent2); margin-bottom:.3rem; }
+  .tl-desc { font-family:var(--mono); font-size:.77rem; color:var(--muted); line-height:1.7; }
+
+  /* EXPERIENCES */
+  .exp-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1rem; margin-top:2rem; }
+  .exp-card { background:var(--card); border:1px solid var(--border); border-radius:4px; padding:1.2rem; }
+  .exp-card .exp-title { font-size:.88rem; font-weight:700; margin-bottom:.3rem; }
+  .exp-card .exp-company { font-family:var(--mono); font-size:.72rem; color:var(--accent2); margin-bottom:.25rem; }
+  .exp-card .exp-date { font-family:var(--mono); font-size:.68rem; color:var(--muted); }
+
+  /* SKILLS */
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:1.5rem; }
+  .skill-cat { background:var(--card); border:1px solid var(--border); border-radius:4px; padding:1.8rem; transition:all .25s; }
+  .skill-cat:hover { border-color:var(--accent2); transform:translateY(-4px); box-shadow:0 12px 35px rgba(124,58,237,.12); }
+  .skill-cat-title { font-family:var(--mono); font-size:.7rem; color:var(--accent2); text-transform:uppercase; letter-spacing:.18em; margin-bottom:1.2rem; }
+  .skill-tags { display:flex; flex-wrap:wrap; gap:.45rem; }
+  .tag { font-family:var(--mono); font-size:.7rem; padding:.28rem .65rem; background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:2px; color:var(--text); }
+
+  /* METIERS */
+  .metiers-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3rem; }
+  .metier-card { background:var(--card); border:1px solid var(--border); border-radius:4px; padding:2rem; transition:all .25s; position:relative; overflow:hidden; }
+  .metier-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--accent), var(--accent2)); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+  .metier-card:hover::before { transform:scaleX(1); }
+  .metier-card:hover { transform:translateY(-4px); border-color:rgba(0,229,255,.2); }
+  .metier-icon { font-size:2rem; margin-bottom:1rem; }
+  .metier-title { font-size:1.1rem; font-weight:700; margin-bottom:.8rem; }
+  .metier-desc { font-family:var(--mono); font-size:.79rem; color:var(--muted); line-height:1.85; }
+
+  /* CARTE HEURISTIQUE */
+  .carte-section { margin-top:2rem; }
+  .carte-container { background:var(--card); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+  .carte-header { padding:1.2rem 1.8rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:1rem; }
+  .carte-header span { font-family:var(--mono); font-size:.72rem; color:var(--accent); text-transform:uppercase; letter-spacing:.15em; }
+  .carte-img { width:100%; display:block; cursor:pointer; transition:opacity .2s; }
+  .carte-img:hover { opacity:.9; }
+
+  /* PROJECTS */
+  .projects-grid { display:grid; gap:2.5rem; }
+  .project-card { background:var(--card); border:1px solid var(--border); border-radius:4px; overflow:hidden; transition:all .3s; }
+  .project-card:hover { border-color:var(--accent); box-shadow:0 0 50px rgba(0,229,255,.06); }
+  .project-header { display:grid; grid-template-columns:240px 1fr; }
+  .project-visual { background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:3.5rem; border-right:1px solid var(--border); position:relative; overflow:hidden; min-height:200px; }
+  .project-visual::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, transparent 50%, rgba(0,229,255,.04)); }
+  .project-content { padding:2rem; }
+  .project-type { font-family:var(--mono); font-size:.66rem; color:var(--accent3); text-transform:uppercase; letter-spacing:.18em; margin-bottom:.8rem; }
+  .project-title { font-size:1.4rem; font-weight:700; margin-bottom:.8rem; line-height:1.2; }
+  .project-desc { font-family:var(--mono); font-size:.8rem; color:var(--muted); line-height:1.85; margin-bottom:1.2rem; }
+  .project-tech { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.2rem; }
+  .tech-tag { font-family:var(--mono); font-size:.66rem; padding:.22rem .55rem; background:rgba(0,229,255,.06); border:1px solid rgba(0,229,255,.18); border-radius:2px; color:var(--accent); }
+  .project-meta { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; padding:1rem; background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:2px; margin-bottom:1.2rem; }
+  .meta-label { font-family:var(--mono); font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.2rem; }
+  .meta-value { font-family:var(--mono); font-size:.76rem; color:var(--text); }
+  .project-actions { display:flex; gap:.8rem; flex-wrap:wrap; }
+
+  /* COMPETENCES PROJET */
+  .project-details { border-top:1px solid var(--border); padding:2rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .detail-section h4 { font-family:var(--mono); font-size:.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; margin-bottom:.8rem; }
+  .comp-item { font-family:var(--mono); font-size:.76rem; color:var(--muted); padding:.25rem 0; display:flex; align-items:flex-start; gap:.6rem; line-height:1.5; }
+  .comp-item::before { content:'✓'; color:var(--accent3); font-size:.7rem; flex-shrink:0; margin-top:.1rem; }
+  .livrable-item { font-family:var(--mono); font-size:.76rem; color:var(--muted); padding:.22rem 0; display:flex; align-items:center; gap:.6rem; }
+  .livrable-item::before { content:'▸'; color:var(--accent); }
+
+  /* VIDEO */
+  .video-section { border-top:1px solid var(--border); padding:2rem; }
+  .video-label { font-family:var(--mono); font-size:.68rem; color:var(--accent); text-transform:uppercase; letter-spacing:.15em; margin-bottom:1rem; }
+  .video-wrap { background:var(--bg); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+  .video-wrap video { width:100%; display:block; max-height:400px; }
+
+  /* DIFFICULTES */
+  .diff-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:1rem; margin-top:1rem; }
+  .diff-card { background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:4px; padding:1.2rem; }
+  .diff-title { font-size:.85rem; font-weight:700; margin-bottom:.4rem; color:var(--text); }
+  .diff-solution { font-family:var(--mono); font-size:.75rem; color:var(--muted); line-height:1.7; }
+  .diff-solution strong { color:var(--accent3); }
+
+  /* VEILLE */
+  .veille-intro { font-family:var(--mono); font-size:.86rem; color:var(--muted); line-height:1.9; margin-bottom:2rem; padding:1.5rem 1.8rem; border-left:3px solid var(--accent); background:rgba(0,229,255,.03); border-radius:0 4px 4px 0; }
+  .veille-tools { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:3rem; }
+  .articles-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(330px,1fr)); gap:1.5rem; }
+  .article-card { background:var(--card); border:1px solid var(--border); border-radius:4px; padding:1.8rem; transition:all .25s; position:relative; overflow:hidden; }
+  .article-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent2); transform:scaleY(0); transition:transform .3s; transform-origin:bottom; }
+  .article-card:hover::before { transform:scaleY(1); }
+  .article-card:hover { border-color:rgba(124,58,237,.3); transform:translateY(-4px); }
+  .article-source { font-family:var(--mono); font-size:.63rem; color:var(--accent2); text-transform:uppercase; letter-spacing:.15em; margin-bottom:.8rem; }
+  .article-title { font-size:.98rem; font-weight:700; margin-bottom:.8rem; line-height:1.3; }
+  .article-summary { font-family:var(--mono); font-size:.77rem; color:var(--muted); line-height:1.75; margin-bottom:1rem; }
+  .article-interest { font-family:var(--mono); font-size:.73rem; color:var(--accent3); line-height:1.6; padding-top:.8rem; border-top:1px solid var(--border); }
+  .article-interest::before { content:'→ '; opacity:.7; }
+  .veille-synthese { margin-top:3rem; background:var(--card); border:1px solid var(--border); border-radius:4px; padding:2.5rem; position:relative; overflow:hidden; }
+  .veille-synthese::before { content:'"'; position:absolute; top:-20px; right:2rem; font-size:14rem; color:rgba(0,229,255,.03); font-family:serif; line-height:1; }
+  .synthese-title { font-family:var(--mono); font-size:.72rem; color:var(--accent); text-transform:uppercase; letter-spacing:.18em; margin-bottom:1.2rem; }
+  .synthese-text { font-family:var(--mono); font-size:.84rem; color:var(--muted); line-height:1.95; }
+  .synthese-text strong { color:var(--text); }
+  .trends { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:1.5rem; }
+  .trend { padding:.8rem 1rem; background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:2px; font-family:var(--mono); font-size:.76rem; color:var(--muted); display:flex; align-items:center; gap:.7rem; }
+  .trend::before { content:'◈'; color:var(--accent); font-size:.8rem; }
+
+  /* CONTACT */
+  .contact-inner { max-width:1280px; margin:0 auto; padding:7rem 4rem; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+  .contact-info p { font-family:var(--mono); font-size:.83rem; color:var(--muted); line-height:1.85; margin-bottom:2rem; }
+  .contact-detail { display:flex; align-items:center; gap:1rem; padding:1rem 1.2rem; border:1px solid var(--border); border-radius:2px; margin-bottom:.8rem; font-family:var(--mono); font-size:.8rem; color:var(--muted); background:var(--card); transition:border-color .2s; }
+  .contact-detail:hover { border-color:var(--accent); color:var(--text); }
+  .contact-detail a { color:inherit; text-decoration:none; }
+  .contact-detail a:hover { color:var(--accent); }
+  .contact-detail .icon { color:var(--accent); width:20px; text-align:center; flex-shrink:0; }
+  .contact-form { display:flex; flex-direction:column; gap:1rem; }
+  .form-group { display:flex; flex-direction:column; gap:.4rem; }
+  .form-label { font-family:var(--mono); font-size:.67rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+  .form-input, .form-textarea { background:var(--card); border:1px solid var(--border); border-radius:2px; padding:.9rem 1rem; color:var(--text); font-family:var(--mono); font-size:.83rem; outline:none; transition:border-color .2s; width:100%; }
+  .form-input:focus, .form-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,229,255,.07); }
+  .form-textarea { resize:vertical; min-height:130px; }
+
+  /* FOOTER */
+  footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+  .footer-text { font-family:var(--mono); font-size:.7rem; color:var(--muted); }
+  .footer-text span { color:var(--accent); }
+  .footer-links { display:flex; gap:1.5rem; }
+  .footer-links a { font-family:var(--mono); font-size:.7rem; color:var(--muted); text-decoration:none; transition:color .2s; }
+  .footer-links a:hover { color:var(--accent); }
+
+  /* ANIM */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .65s ease, transform .65s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .cursor-blink { display:inline-block; width:3px; height:.9em; background:var(--accent); animation:blink 1s step-end infinite; vertical-align:middle; margin-left:3px; }
+
+  /* MODAL */
+  .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:1000; align-items:center; justify-content:center; padding:2rem; }
+  .modal.open { display:flex; }
+  .modal img { max-width:100%; max-height:90vh; border-radius:4px; }
+  .modal-close { position:absolute; top:1.5rem; right:1.5rem; font-size:2rem; color:var(--muted); cursor:pointer; line-height:1; font-family:var(--mono); }
+  .modal-close:hover { color:var(--accent); }
+
+  @media(max-width:900px) {
+    nav { padding:1rem 1.5rem; }
+    .nav-links { display:none; }
+    #hero, .section-wrap { padding-left:1.5rem; padding-right:1.5rem; }
+    .about-grid, .metiers-grid, .project-header, .project-details, .contact-inner { grid-template-columns:1fr; }
+    .project-visual { border-right:none; border-bottom:1px solid var(--border); min-height:120px; }
+    .hero-avatar { display:none; }
+    footer { flex-direction:column; gap:.8rem; text-align:center; }
+    .trends { grid-template-columns:1fr; }
+    .project-meta { grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">MC<span>://</span>portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:100%;">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Étudiant en informatique — BTS SIO option SLAM — CNED 2025/2026</div>
+    <h1 class="hero-title">
+      Mimoun<br>
+      <span class="accent" id="typed"></span><span class="dim">.</span>
+      <span class="cursor-blink"></span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Développement d'applications</strong><br>
+      Motivé, sérieux et curieux — à la recherche d'un stage de 4 à 5 semaines.<br>
+      Essômes-sur-Marne, Aisne (02), France.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+      <a href="cv.pdf" download class="btn btn-outline">⬇ Télécharger mon CV</a>
+      <a href="#contact" class="btn btn-outline">Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-avatar">
+    <!-- Remplace par ta photo : <img src="photo.jpg" alt="Mimoun Chaouchi"> -->
+    <div style="width:220px;height:220px;background:var(--card);border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:4rem;">👤</div>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="section-wrap">
+  <div class="section-header reveal">
+    <div class="section-label">// 01 — À propos</div>
+    <h2 class="section-title">Qui suis-je ?</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Je m'appelle <strong>Mimoun Chaouchi</strong>, étudiant en BTS SIO option SLAM au CNED. Passionné par le développement et les technologies, je me forme aux langages <strong>C#, PHP, HTML/CSS/JavaScript, Java et Python</strong>.</p>
+      <p>Mon objectif est de devenir <strong>développeur d'applications</strong> et d'acquérir une solide expérience professionnelle à travers un stage et divers projets. Je m'intéresse particulièrement à la <strong>programmation orientée objet</strong>, à la conception UML/Merise, et à la gestion des bases de données.</p>
+      <p>Je suis à la recherche d'un <strong>stage de 4 à 5 semaines entre mai et août</strong> pour mettre en pratique mes connaissances en développement et contribuer aux besoins d'une équipe.</p>
+
+      <div class="formation-box">
+        <h3>Formation : BTS SIO – Option SLAM</h3>
+        <p style="font-family:var(--mono);font-size:.8rem;color:var(--muted);line-height:1.8;margin-bottom:.8rem;">Le BTS SIO forme aux métiers du numérique. L'option <strong style="color:var(--text)">SLAM (Solutions Logicielles et Applications Métiers)</strong> se concentre sur :</p>
+        <ul class="formation-list">
+          <li>Programmation : C#, PHP, HTML/CSS/JS, Java, Python</li>
+          <li>Conception : UML, Merise 2</li>
+          <li>Développement web et applicatif</li>
+          <li>Bases de données : MySQL, PostgreSQL, MongoDB</li>
+          <li>Qualité logicielle : SOLID, DRY, KISS, tests unitaires, SonarLint</li>
+          <li>Travail collaboratif : GitHub (push, pull request, branches)</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:1.5rem;">
+        <div class="section-label" style="margin-bottom:1rem;">Expériences professionnelles</div>
+        <div class="exp-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="exp-card">
+            <div class="exp-title">Service civique</div>
+            <div class="exp-company">GFM Radio — Meaux (77)</div>
+            <div class="exp-date">Avril – Juillet 2023</div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-title">Préparateur de commande</div>
+            <div class="exp-company">FM Logistic — Épaux-Bézu (02)</div>
+            <div class="exp-date">Avril – Juillet 2023</div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-title">Employé viticole — vendange</div>
+            <div class="exp-company">Christophe Lefèvre — Bonneil (02)</div>
+            <div class="exp-date">09/2023 — 1 semaine</div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-title">Employé viticole — palissage</div>
+            <div class="exp-company">AB Viti — Gland (02)</div>
+            <div class="exp-date">09/2023 — 10 jours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:1.5rem;">Mon parcours</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2021</div>
+          <div class="tl-content">
+            <div class="tl-title">Baccalauréat STMG</div>
+            <div class="tl-sub">Lycée Jean de la Fontaine — Château-Thierry (02)</div>
+            <div class="tl-desc">Option Ressources Humaines, avec mention.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-content">
+            <div class="tl-title">1ère année BTS Comptabilité & Gestion</div>
+            <div class="tl-sub">Lycée Jean de la Fontaine — Château-Thierry (02)</div>
+            <div class="tl-desc">Réorientation vers l'informatique et le développement.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-content">
+            <div class="tl-title">CACES 1</div>
+            <div class="tl-sub">Promelog — Antilly (60)</div>
+            <div class="tl-desc">Mars 2022.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022–24</div>
+          <div class="tl-content">
+            <div class="tl-title">Période de transition</div>
+            <div class="tl-desc">Orientation personnelle et découverte du développement informatique.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2025 →</div>
+          <div class="tl-content">
+            <div class="tl-title">BTS SIO option SLAM — CNED</div>
+            <div class="tl-sub">CNED — Poitiers</div>
+            <div class="tl-desc">Développement d'applications, conception UML/Merise, bases de données, qualité logicielle, projets encadrés. Recherche de stage mai–août.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SKILLS -->
+<div id="skills" class="section-alt">
+<div class="section-wrap">
+  <div class="section-header reveal">
+    <div class="section-label">// 02 — Compétences</div>
+    <h2 class="section-title">Technologies & outils</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">⬡ Langages de programmation</div>
+      <div class="skill-tags">
+        <span class="tag">C#</span><span class="tag">PHP</span><span class="tag">HTML</span>
+        <span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Java</span><span class="tag">Python</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">⬡ CMS & Frameworks</div>
+      <div class="skill-tags">
+        <span class="tag">WordPress</span><span class="tag">.NET Framework</span><span class="tag">Windows Forms</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">⬡ Bases de données</div>
+      <div class="skill-tags">
+        <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">WampServer</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">⬡ Conception</div>
+      <div class="skill-tags">
+        <span class="tag">UML</span><span class="tag">Merise 2</span><span class="tag">Architecture MVC</span><span class="tag">POO</span><span class="tag">Looping</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">⬡ Qualité logicielle</div>
+      <div class="skill-tags">
+        <span class="tag">Tests unitaires</span><span class="tag">SOLID</span><span class="tag">DRY</span><span class="tag">KISS</span><span class="tag">SonarLint</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">⬡ Outils & DevOps</div>
+      <div class="skill-tags">
+        <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Visual Studio</span><span class="tag">NetBeans</span><span class="tag">Eclipse</span><span class="tag">SandCastle</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- METIERS VISES -->
+  <div class="section-header reveal" style="margin-top:5rem;">
+    <div class="section-label">// Métiers visés</div>
+    <h2 class="section-title">Où je me projette</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="metiers-grid reveal">
+    <div class="metier-card">
+      <div class="metier-icon">🖥️</div>
+      <div class="metier-title">Développeur d'applications</div>
+      <p class="metier-desc">Métier principal visé dans l'option SLAM. Il consiste à analyser un besoin, concevoir une solution, développer l'application, réaliser des tests et assurer la maintenance. Requiert des compétences en programmation, conception UML/Merise, bases de données et qualité logicielle.</p>
+    </div>
+    <div class="metier-card">
+      <div class="metier-icon">🌐</div>
+      <div class="metier-title">Développeur web</div>
+      <p class="metier-desc">Orienté vers la création de sites et d'applications web. Utilise principalement HTML, CSS, JavaScript, PHP, des frameworks et des outils collaboratifs. Intégration de maquettes, développement de fonctionnalités web, gestion d'API et qualité technique du site.</p>
+    </div>
+  </div>
+
+  <!-- CARTE HEURISTIQUE -->
+  <div class="carte-section reveal">
+    <div class="section-label" style="margin-bottom:1rem;">Carte heuristique — Développeur d'applications</div>
+    <div class="carte-container">
+      <div class="carte-header">
+        <span>🗺️</span>
+        <span>Vue d'ensemble des compétences du métier — cliquez pour agrandir</span>
+      </div>
+      <img src="Carte_heuristique.png" alt="Carte heuristique Développeur d'applications" class="carte-img" onclick="document.getElementById('modalCarte').classList.add('open')">
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+<div class="section-wrap">
+  <div class="section-header reveal">
+    <div class="section-label">// 03 — Projets</div>
+    <h2 class="section-title">Mes réalisations</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <!-- ATELIER PRO -->
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-visual">🖥️</div>
+        <div class="project-content">
+          <div class="project-type">Atelier Professionnel 2 — BTS SIO SLAM</div>
+          <h3 class="project-title">Développement d'application MediaTek86</h3>
+          <p class="project-desc">Missionné en tant que technicien développeur junior chez l'ESN InfoTech Services 86 pour développer une application de bureau permettant de gérer le personnel des médiathèques du réseau MediaTek86 (département de la Vienne) : connexion sécurisée, gestion du personnel et des absences.</p>
+          <div class="project-meta">
+            <div class="meta-item">
+              <div class="meta-label">Langage</div>
+              <div class="meta-value">C# / .NET 4.7.2</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Architecture</div>
+              <div class="meta-value">MVC — Windows Forms</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">BDD</div>
+              <div class="meta-value">MySQL / WampServer</div>
+            </div>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">.NET 4.7.2</span>
+            <span class="tech-tag">Windows Forms</span>
+            <span class="tech-tag">MySQL</span>
+            <span class="tech-tag">Architecture MVC</span>
+            <span class="tech-tag">Git / GitHub</span>
+            <span class="tech-tag">SandCastle</span>
+            <span class="tech-tag">SHA2-256</span>
+            <span class="tech-tag">Looping</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/shintomoon/MediaTek86-gestion-personnel" target="_blank" class="btn btn-primary" style="font-size:.7rem;padding:.6rem 1.2rem;">
+              ⎇ Voir sur GitHub
+            </a>
+            <a href="compte_rendu.pdf" download class="btn btn-outline" style="font-size:.7rem;padding:.6rem 1.2rem;">
+              📄 Compte rendu PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETAILS -->
+      <div class="project-details">
+        <div class="detail-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="comp-item">Conception d'une base de données relationnelle (MCD → SQL)</div>
+          <div class="comp-item">Développement en architecture MVC</div>
+          <div class="comp-item">Connexion sécurisée SHA2-256 côté MySQL</div>
+          <div class="comp-item">Pattern Singleton pour la gestion BDD</div>
+          <div class="comp-item">Gestion des contraintes d'intégrité référentielle</div>
+          <div class="comp-item">Gestion de versions Git + tableau Kanban GitHub</div>
+          <div class="comp-item">Documentation technique SandCastle</div>
+          <div class="comp-item">Création d'un installateur MSI</div>
+        </div>
+        <div class="detail-section">
+          <h4>Livrables</h4>
+          <div class="livrable-item">Application bureau fonctionnelle</div>
+          <div class="livrable-item">Installateur MSI</div>
+          <div class="livrable-item">Documentation technique (SandCastle)</div>
+          <div class="livrable-item">Compte rendu d'activité (PDF)</div>
+          <div class="livrable-item">Vidéo de démonstration (~5 min)</div>
+          <div class="livrable-item">Dépôt GitHub avec Readme complet</div>
+
+          <h4 style="margin-top:1.5rem;">Difficultés résolues</h4>
+          <div class="comp-item" style="--accent3:#f59e0b;">Problèmes de namespace entre .cs et .Designer.cs</div>
+          <div class="comp-item" style="--accent3:#f59e0b;">Événements de clic non branchés dans le Designer</div>
+          <div class="comp-item" style="--accent3:#f59e0b;">Suppression de personnel avec contrainte clé étrangère</div>
+          <div class="comp-item" style="--accent3:#f59e0b;">Détection de chevauchement des absences (SQL)</div>
+        </div>
+      </div>
+
+      <!-- VIDEO -->
+      <div class="video-section">
+        <div class="video-label">🎬 Vidéo de démonstration — MediaTek86</div>
+        <div class="video-wrap">
+          <video controls preload="metadata">
+            <source src="Demo_MediaTek86.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGE -->
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-visual">🏢</div>
+        <div class="project-content">
+          <div class="project-type">Projet de stage — BTS SIO SLAM</div>
+          <h3 class="project-title">Stage en entreprise</h3>
+          <p class="project-desc">Ce projet représente le travail réalisé lors du stage en entreprise (BTS SIO – option SLAM). Il portera sur le développement ou la maintenance d'une application au sein d'une structure professionnelle. Le contenu détaillé sera ajouté à l'issue du stage.</p>
+          <div class="project-meta">
+            <div class="meta-item">
+              <div class="meta-label">Durée</div>
+              <div class="meta-value">4 à 5 semaines</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Période</div>
+              <div class="meta-value">Mai – Août</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Statut</div>
+              <div class="meta-value">🕐 À venir</div>
+            </div>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">À définir</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- VEILLE -->
+<div id="veille" class="section-alt">
+<div class="section-wrap">
+  <div class="section-header reveal">
+    <div class="section-label">// 04 — Veille informationnelle</div>
+    <h2 class="section-title">Intelligence Artificielle 2024/2025</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="veille-intro reveal">
+    Cette veille porte sur l'évolution de l'intelligence artificielle en 2024–2025 : ses usages dans les entreprises, ses enjeux éthiques et sécuritaires, et son impact sur le métier de développeur. <strong style="color:var(--text)">Auteur : Mimoun Chaouchi.</strong>
+  </div>
+  <div class="reveal" style="margin-bottom:2.5rem;">
+    <div class="section-label" style="margin-bottom:.8rem;">Dispositifs de surveillance mis en place</div>
+    <div class="veille-tools">
+      <span class="tag">Google Alerts — "IA"</span>
+      <span class="tag">Google Alerts — "IA générative"</span>
+      <span class="tag">ZDNet France</span>
+      <span class="tag">Commission Européenne</span>
+      <span class="tag">EDPS</span>
+      <span class="tag">Ecommercemag</span>
+      <span class="tag">Microsoft Developer Blog</span>
+    </div>
+  </div>
+  <div class="articles-grid">
+    <div class="article-card reveal">
+      <div class="article-source">ZDNet France — Janvier 2025</div>
+      <h4 class="article-title">L'IA devient un outil incontournable dans les entreprises</h4>
+      <p class="article-summary">L'IA est adoptée massivement pour automatiser des tâches complexes et renforcer la productivité. Anthropic s'impose grâce à des modèles stables adaptés à l'usage professionnel. Les entreprises intègrent des « AI copilots » dans leurs outils quotidiens.</p>
+      <div class="article-interest">Montre comment l'IA transforme les outils de travail — essentiel pour comprendre l'évolution du métier de développeur.</div>
+    </div>
+    <div class="article-card reveal">
+      <div class="article-source">Commission Européenne — 2025</div>
+      <h4 class="article-title">Régulation 2025 : mise en place du AI Act</h4>
+      <p class="article-summary">L'UE déploie le AI Act, imposant des obligations strictes aux entreprises utilisant des IA à haut risque : traçabilité, transparence, contrôle qualité. Les contenus générés devront indiquer leur origine automatisée.</p>
+      <div class="article-interest">Important pour comprendre le cadre légal que devront respecter les futurs professionnels de l'informatique.</div>
+    </div>
+    <div class="article-card reveal">
+      <div class="article-source">Ecommercemag — 2025</div>
+      <h4 class="article-title">Mistral AI devient un acteur majeur de l'IA européenne</h4>
+      <p class="article-summary">La startup française Mistral AI atteint une valorisation record grâce à ses modèles open source performants et légers, attirant les entreprises européennes cherchant à réduire leur dépendance aux solutions américaines.</p>
+      <div class="article-interest">Montre que l'Europe devient compétitive dans l'IA — enjeu stratégique pour les métiers du numérique.</div>
+    </div>
+    <div class="article-card reveal">
+      <div class="article-source">EDPS — Octobre 2025</div>
+      <h4 class="article-title">Nouvelles règles de sécurité pour l'IA générative</h4>
+      <p class="article-summary">L'Europe publie de nouvelles directives sur la protection des données : audits réguliers, contrôle strict des données sensibles, meilleure transparence dans le fonctionnement des modèles.</p>
+      <div class="article-interest">Insiste sur la responsabilité du développeur face à l'IA, notamment concernant la sécurité des données.</div>
+    </div>
+    <div class="article-card reveal">
+      <div class="article-source">Microsoft Developer Blog — 2025</div>
+      <h4 class="article-title">L'IA générative transforme la manière de programmer</h4>
+      <p class="article-summary">Les assistants comme GitHub Copilot permettent d'accélérer des tâches de développement en générant du code, tests ou explications d'erreurs. Gains de productivité réels mais nécessitant une vérification rigoureuse.</p>
+      <div class="article-interest">Impact direct de l'IA générative sur le métier de développeur SLAM.</div>
+    </div>
+  </div>
+  <div class="veille-synthese reveal">
+    <div class="synthese-title">// Synthèse finale</div>
+    <p class="synthese-text">Cette veille met en évidence quatre tendances majeures en 2025 :</p>
+    <div class="trends">
+      <div class="trend">Généralisation de l'IA dans les entreprises</div>
+      <div class="trend">Montée des enjeux éthiques et réglementaires</div>
+      <div class="trend">Émergence d'acteurs européens compétitifs</div>
+      <div class="trend">Impact profond sur le métier de développeur</div>
+    </div>
+    <p class="synthese-text" style="margin-top:1.5rem;">Les futurs professionnels du numérique doivent <strong>maîtriser les outils d'IA</strong>, comprendre leurs risques et savoir travailler avec eux de manière <strong>responsable</strong>.</p>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <div class="section-label">// 05 — Contact</div>
+      <h2 class="section-title" style="margin-bottom:1rem;">Travaillons<br><span style="color:var(--accent)">ensemble.</span></h2>
+      <p>N'hésitez pas à me contacter pour toute demande liée à ma formation, mes projets ou une opportunité de stage en développement (BTS SIO – option SLAM). Je vous répondrai dans les plus brefs délais.</p>
+      <div class="contact-detail"><span class="icon">✉</span><span><a href="mailto:chaouchimimoun@gmail.com">chaouchimimoun@gmail.com</a></span></div>
+      <div class="contact-detail"><span class="icon">📞</span><span>06 60 96 11 46</span></div>
+      <div class="contact-detail"><span class="icon">📍</span><span>Essômes-sur-Marne, Aisne (02), France</span></div>
+      <div class="contact-detail"><span class="icon">🔗</span><span><a href="https://www.linkedin.com/in/mimoun-chaouchi-9139b4385/" target="_blank">LinkedIn</a></span></div>
+      <div class="contact-detail"><span class="icon">⎇</span><span><a href="https://github.com/shintomoon" target="_blank">github.com/shintomoon</a></span></div>
+      <div style="display:flex;gap:.8rem;margin-top:1.5rem;flex-wrap:wrap;">
+        <a href="cv.pdf" download class="btn btn-primary">⬇ Télécharger mon CV</a>
+        <a href="compte_rendu.pdf" download class="btn btn-outline">📄 Compte rendu</a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-group">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-input" placeholder="Votre nom">
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-input" placeholder="votre@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Objet</label>
+        <input type="text" class="form-input" placeholder="Objet du message">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Rédigez votre message ici..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:1rem;" onclick="alert('Pour activer l\'envoi de formulaire, connectez ce fichier à Formspree.io (gratuit)')">Envoyer</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2025 — <span>Mimoun Chaouchi</span> — BTS SIO SLAM</div>
+  <div class="footer-links">
+    <a href="https://github.com/shintomoon" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/mimoun-chaouchi-9139b4385/" target="_blank">LinkedIn</a>
+    <a href="cv.pdf" download>CV PDF</a>
+  </div>
+</footer>
+
+<!-- MODAL CARTE HEURISTIQUE -->
+<div class="modal" id="modalCarte" onclick="this.classList.remove('open')">
+  <div class="modal-close" onclick="document.getElementById('modalCarte').classList.remove('open')">✕</div>
+  <img src="Carte_heuristique.png" alt="Carte heuristique">
+</div>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Typewriter
+  const el = document.getElementById('typed');
+  const word = 'Chaouchi';
+  let i = 0;
+  function type() { if(i < word.length) { el.textContent += word[i++]; setTimeout(type, 80); } }
+  setTimeout(type, 700);
+
+  // Nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.padding = window.scrollY > 60 ? '.7rem 4rem' : '1.1rem 4rem';
+  });
+</script>
+</body>
+</html>
