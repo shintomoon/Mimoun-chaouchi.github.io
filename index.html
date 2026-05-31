@@ -678,7 +678,7 @@
       <div class="section-label">// 05 — Contact</div>
       <h2 class="section-title" style="margin-bottom:1rem;">Travaillons<br><span style="color:var(--accent)">ensemble.</span></h2>
       <p>N'hésitez pas à me contacter pour toute demande liée à ma formation, mes projets ou une opportunité de stage en développement (BTS SIO – option SLAM). Je vous répondrai dans les plus brefs délais.</p>
-      <div class="contact-detail"><span class="icon">✉</span><span><a href="mailto:chaouchimimoun@gmail.com">chaouchimimoun@gmail.com</a></span></div>
+      <div class="contact-detail"><span class="icon">✉</span><span><a href="mailto:shintomoon@gmail.com">shintomoon@gmail.com.com</a></span></div>
       <div class="contact-detail"><span class="icon">📞</span><span>06 60 96 11 46</span></div>
       <div class="contact-detail"><span class="icon">📍</span><span>Essômes-sur-Marne, Aisne (02), France</span></div>
       <div class="contact-detail"><span class="icon">🔗</span><span><a href="https://www.linkedin.com/in/mimoun-chaouchi-9139b4385/" target="_blank">LinkedIn</a></span></div>
@@ -688,26 +688,26 @@
         <a href="compte_rendu.pdf" download class="btn btn-outline">📄 Compte rendu</a>
       </div>
     </div>
-    <div class="contact-form reveal">
-      <div class="form-group">
-        <label class="form-label">Nom</label>
-        <input type="text" class="form-input" placeholder="Votre nom">
-      </div>
-      <div class="form-group">
-        <label class="form-label">E-mail</label>
-        <input type="email" class="form-input" placeholder="votre@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Objet</label>
-        <input type="text" class="form-input" placeholder="Objet du message">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="Rédigez votre message ici..."></textarea>
-      </div>
-      <button class="btn btn-primary" style="width:100%;padding:1rem;" onclick="alert('Pour activer l\'envoi de formulaire, connectez ce fichier à Formspree.io (gratuit)')">Envoyer</button>
+     <div class="contact-form reveal">
+  <form action="https://formspree.io/f/mdajvqag" method="POST">
+    <div class="form-group">
+      <label class="form-label">Nom</label>
+      <input type="text" name="nom" class="form-input" placeholder="Votre nom" required>
     </div>
-  </div>
+    <div class="form-group">
+      <label class="form-label">E-mail</label>
+      <input type="email" name="email" class="form-input" placeholder="votre@email.com" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Objet</label>
+      <input type="text" name="objet" class="form-input" placeholder="Objet du message" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea name="message" class="form-textarea" placeholder="Rédigez votre message ici..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width:100%;padding:1rem;">Envoyer</button>
+  </form>
 </div>
 
 <!-- FOOTER -->
